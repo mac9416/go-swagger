@@ -60,6 +60,7 @@ func (c *MixinSpec) Execute(args []string) error {
 	for _, warn := range collisions {
 		log.Println(warn)
 	}
+	log.Printf("Encountered %v collisions\n", args[0])
 
 	if err != nil {
 		return err
@@ -69,6 +70,7 @@ func (c *MixinSpec) Execute(args []string) error {
 		if len(collisions) != 0 {
 			// use bash $? to get actual # collisions
 			// (but has to be non-zero)
+			// high numbers can cause overflows - also check the log
 			os.Exit(len(collisions))
 		}
 		os.Exit(254)
